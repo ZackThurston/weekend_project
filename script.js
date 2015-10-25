@@ -5,20 +5,22 @@ queue()
 function ready(error, students) {
   if (error) throw error;
     console.log(students);
-}
 
 // Dimensional variable settings
 var margin = {
   "top": 25,
   "right": 20,
   "bottom": 30,
-  "left": 70
+  "left": 150
 };
 
+numWeeks = getWeeks();
+
+console.log(numWeeks);
 // Create the Scale used for X Axis
-var xScale = d3.scale.linear()
-  .domain([0, 8])
-  .rangeRound([0, 1100]);
+var xScale = d3.scale.ordinal()
+  .domain(numWeeks)
+  .rangeRoundBands([0, 1000], 0.3, 0.25);
 
 // Create the Scale used for Y Axis
 var yScale = d3.scale.ordinal()
@@ -36,7 +38,7 @@ var yScale = d3.scale.ordinal()
     // Create SVG Container for Graph
 var svgMain = d3.select("body").append("svg")
   .attr("class", "svg")
-  .attr("width", 1100 + margin.left + margin.right)
+  .attr("width", 1000 + margin.left + margin.right)
   .attr("height", 350 + margin.top + margin.bottom)
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -50,3 +52,11 @@ svgMain.append("g")
   .attr("id", "yAxis")
   .attr("class", "axis")
   .call(yAxis);
+
+  function getWeeks() {
+    return students[0].items.map(function(d){
+      return d.category;
+    })
+  }
+
+}
