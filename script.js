@@ -7,12 +7,42 @@ function ready(error, students) {
     console.log(students);
 
 // Dimensional variable settings
-var margin = {
-  "top": 25,
-  "right": 20,
-  "bottom": 30,
-  "left": 150
-};
+}
+
+var BoxSet = function (){
+  var data = [];
+  var margin = {
+    "top": 25,
+    "right": 20,
+    "bottom": 30,
+    "left": 150
+  };
+  var xScaleInnerPadding = 0,
+      xScaleOuterPadding = 0,
+      yScaleInnerPadding = 0.3,
+      yScaleOuterPadding = 0.25;
+
+  var xScale = d3.scale.ordinal();
+  var yScale = d3.scale.ordinal();
+  var xAxis = d3.svg.axis();
+  var yAxis = d3.svg.axis();
+
+
+
+
+function setAxisScales() {
+  // Create the Scale used for X Axis
+  xScale.domain(numWeeks)
+    .rangeRoundBands([0, 1000], xScaleInnerPadding, xScaleOuterPadding);
+    // Create the Scale used for Y Axis
+  yScale.domain(courses)
+    .rangeRoundBands([350, 0], 0.3, 0.25);
+  // Create Axes
+  xAxis.scale(xScale)
+    .orient("top");
+  yAxis.scale(yScale)
+    .orient("left");
+  }
 
 var colors = ["#FFB300", "#803E75", "#FF6800",
       "#A6BDD7", "#C10020", "#CEA262",
@@ -25,23 +55,9 @@ var colors = ["#FFB300", "#803E75", "#FF6800",
 numWeeks = getWeeks();
 courses = getCourses();
 
-// Create the Scale used for X Axis
-var xScale = d3.scale.ordinal()
-  .domain(numWeeks)
-  .rangeRoundBands([0, 1000]);
 
-// Create the Scale used for Y Axis
-var yScale = d3.scale.ordinal()
-  .domain(courses)
-  .rangeRoundBands([350, 0], 0.3, 0.25);
 
-  // Create Axes
-  var xAxis = d3.svg.axis()
-    .scale(xScale)
-    .orient("top");
-  var yAxis = d3.svg.axis()
-    .scale(yScale)
-    .orient("left");
+
 
     // Create SVG Container for Graph
 var svgMain = d3.select("body").append("svg")
