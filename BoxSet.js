@@ -10,14 +10,14 @@ var BoxSet = function (){
                 "bottom": 30,
                 "left": 150
               },
-      minWidth = 450,
+      minWidth = 400,
       width = 1000,
-      height = 350;
+      height = 100;
 
   var xScalePadding = 0,
       xScaleOuterPadding = 0,
       yScalePadding = 0.3,
-      yScaleOuterPadding = 0.25;
+      yScaleOuterPadding = 0;
 
   var xScale = d3.scale.ordinal();
   var yScale = d3.scale.ordinal();
@@ -70,6 +70,31 @@ var BoxSet = function (){
     return BoxSet;
   };
 
+  BoxSet.columnGap = function(x) {
+    if (!arguments.length) return xScalePadding;
+    xScalePadding = x;
+    return BoxSet;
+  };
+
+  BoxSet.outerColumnGap = function(x) {
+    if (!arguments.length) return xScaleOuterPadding;
+    xScaleOuterPadding = x;
+    return BoxSet;
+  };
+
+  BoxSet.rowGap = function(x) {
+    if (!arguments.length) return yScalePadding;
+    yScalePadding = x;
+    return BoxSet;
+  };
+
+  BoxSet.outerRowGap = function(x) {
+    if (!arguments.length) return yScaleOuterPadding;
+    yScaleOuterPadding = x;
+
+    return BoxSet;
+  };
+
   BoxSet.xScale = function () {
     return xScale;
   };
@@ -106,7 +131,7 @@ var BoxSet = function (){
       .rangeRoundBands([0, width], xScalePadding, xScaleOuterPadding);
       // Create the Scale used for Y Axis
     yScale.domain(courses)
-      .rangeRoundBands([height, 0], yScalePadding, yScaleOuterPadding);
+      .rangeRoundBands([height*courses.length, 0], yScalePadding, yScaleOuterPadding);//0);
     // Create Axes
     xAxis.scale(xScale)
       .orient("top");
@@ -119,7 +144,7 @@ var BoxSet = function (){
     svgMain = d3.select("body").append("svg")
       .attr("class", "svg")
       .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
+      .attr("height", height*courses.length + margin.top + margin.bottom)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 

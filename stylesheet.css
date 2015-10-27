@@ -14,5 +14,6 @@
 .box {
   fill: none;
   stroke: black;
-  stroke-opacity: 0.15;
+  stroke-width: 0.5;
+  stroke-opacity: 0.10;
 }

@@ -11,7 +11,17 @@ function ready(error, students) {
   });
 
   var graph = BoxSet()
+        //.rowGap(0)
+        .rowGap(0.1)
+        //.columnGap(0.5)
         .setData(students)
+        //.setData(filterStudents)
         .layout();
+
+  var another = BoxSet()
+              .rowGap(0.1)
+              .height(200)
+              .setData(students)
+              .layout();
 
 }
