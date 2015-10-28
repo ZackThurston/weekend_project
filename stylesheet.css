@@ -17,3 +17,17 @@
   stroke-width: 0.5;
   stroke-opacity: 0.10;
 }
+
+.tooltip > * {
+  background: #eee;
+  box-shadow: 0 0 5px #999999;
+  color: #333;
+  display: none;
+  font-size: 12px;
+  position: absolute;
+  text-align: center;
+  width: 50px;
+  left: 0;
+  /*z-index: 25;*/
+  opacity: 0.8;
+}

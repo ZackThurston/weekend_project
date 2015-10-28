@@ -199,15 +199,33 @@ var BoxSet = function (){
       .attr("height", yScale.rangeBand() / itr)
       .attr("width", xScale.rangeBand())
       .attr("transform", "translate(" + 0 + "," + i*(yScale.rangeBand() / itr) + ")")
-      .on("mouseover", function(d) {
+      .on("mouseenter",  function(d) {
         if ( this.style.fill !== 'none' )
-          toolTip(d.day);
+          tooltip(this, d.day);
+      })
+      .on("mouseleave", function(d) {
+        if ( this.style.fill !== 'none' )
+          tooltip();
       });
     }
   }
 
-  function toolTip(d){
-    console.log(d3.select(this), d);
+  function tooltip(box, d){
+    if( !arguments.length ){
+      d3.selectAll('.tooltip').remove();
+      return;
+    }
+
+    d3.select('body').append('path').attr("class", "tooltip");
+    var selection = d3.select('.tooltip').append('div').attr("class", 'tooltipDiv').attr('width', xScale.rangeBand()/2).html(d);
+
+    selection.style('display', 'block')
+              .style('top', box.getBoundingClientRect().bottom-4 + 'px')
+              .style('left', box.getBoundingClientRect().right-4 + 'px');
+
+              // .style('top', (d3.event.pageY) + 'px')
+              // .style('left', (d3.event.pageX) + 5 + 'px');
+    console.log(selection, d);
   }
 
   return BoxSet;
