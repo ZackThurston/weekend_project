@@ -198,8 +198,16 @@ var BoxSet = function (){
       .attr("id", i)
       .attr("height", yScale.rangeBand() / itr)
       .attr("width", xScale.rangeBand())
-      .attr("transform", "translate(" + 0 + "," + i*(yScale.rangeBand() / itr) + ")");
+      .attr("transform", "translate(" + 0 + "," + i*(yScale.rangeBand() / itr) + ")")
+      .on("mouseover", function(d) {
+        if ( this.style.fill !== 'none' )
+          toolTip(d.day);
+      });
     }
+  }
+
+  function toolTip(d){
+    console.log(d3.select(this), d);
   }
 
   return BoxSet;
