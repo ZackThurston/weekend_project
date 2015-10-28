@@ -24,7 +24,7 @@
   color: #333;
   display: none;
   font-size: 12px;
-  position: absolute;
+  position: fixed;
   text-align: center;
   width: 50px;
   left: 0;
